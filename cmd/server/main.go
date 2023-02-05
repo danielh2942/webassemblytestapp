@@ -17,7 +17,7 @@ func main() {
 	fs := http.FileServer(http.Dir("../../assets/"))
 
 	// server index.html for root path and stuff
-	http.Handle("/",fs)
+	http.Handle("/", fs)
 
 	err := http.ListenAndServe(":9090", nil)
 	if err != nil {

@@ -6,7 +6,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"syscall/js"
 )
@@ -84,7 +84,7 @@ func ping() js.Func {
 
 				defer res.Body.Close()
 
-				data, err := ioutil.ReadAll(res.Body)
+				data, err := io.ReadAll(res.Body)
 				if err != nil {
 					errorConstructor := js.Global().Get("Error")
 					errorObject := errorConstructor.New(err.Error())
@@ -107,8 +107,7 @@ func main() {
 	// Make the function reachable in the JS code
 	js.Global().Set("formatJSON", jsonWrapper())
 	// Make ping function visible to anyone who can access the server.
-	js.Global().Set("pingFunc",ping())
+	js.Global().Set("pingFunc", ping())
 	// Make the main program not terminate so formatJSON can be called at all.
 	select {}
 }
-
