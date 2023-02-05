@@ -13,7 +13,8 @@
 	<body>
 		<textarea id="jsoninput" name="jsoninput" cols="80" rows="20"></textarea>
 		<input id="button" type="submit" name="button" value="Pretty JSON" onclick="json(jsoninput.value);"/>
-		<textarea id="jsonoutput" name="jsonoutput" cols="80" rows="20"></textarea>	
+		<textarea id="jsonoutput" name="jsonoutput" cols="80" rows="20"></textarea>
+		<input type="submit" value="test wasmHTTP" onclick="MyFunc();" />
 	</body>
 	<script>
 		var json = function(input) {
@@ -26,6 +27,18 @@
 				alert(output.error)
 			}
 		};
+	
+		// This checks if there has been any data sent back to the server
+		// It needs to be async as it is promise based unlike the previous one
+		async function MyFunc() {
+			try {
+				const response = await pingFunc()
+				const message = await response
+				console.log(message)
+			} catch(err) {
+				console.log(err);
+			}
+		}
 	</script>
 </html>
 
